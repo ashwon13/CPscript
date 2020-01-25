@@ -41,6 +41,58 @@ echo "Force Strong Passwords"
 sudo apt-get -y install libpam-cracklib
 sudo sed -i '1 s/^/password requisite pam_cracklib.so retry=3 minlen=8 difok=3 reject_username minclass=3 maxrepeat=2 dcredit=1 ucredit=1 lcredit=1 ocredit=1\n/' /etc/pam.d/common-password
 
+ find / -name '*.mp3' -type f -delete
+    find / -name '*.mov' -type f -delete
+    find / -name '*.mp4' -type f -delete
+    find / -name '*.avi' -type f -delete
+    find / -name '*.mpg' -type f -delete
+    find / -name '*.mpeg' -type f -delete
+    find / -name '*.flac' -type f -delete
+    find / -name '*.m4a' -type f -delete
+    find / -name '*.flv' -type f -delete
+    find / -name '*.ogg' -type f -delete
+    find /home -name '*.gif' -type f -delete
+    find /home -name '*.png' -type f -delete
+    find /home -name '*.jpg' -type f -delete
+    find /home -name '*.jpeg' -type f -delete
+
+echo "Malware removal"
+# Malware
+sudo apt-get -y purge hydra*
+sudo apt-get -y purge john*
+sudo apt-get -y purge nikto*
+sudo apt-get -y purge netcat*
+sudo apt-get -y purge transmisson*
+sudo apt-get -y purge wireshark*
+
+echo "Defult Browser & Update"
+#Defult Browser & Update
+sudo update-alternatives --config x-www-browser
+sudo apt-get update && sudo apt-get install firefox
+
+echo "RootKit Scan & Removal"
+#RootKit Scan & Removal
+sudo apt-get install chkrootkit
+sudo chkroot
+sudo apt-get purge chkrootkit -y 
+
+echo "Fork addons"
+# Fork addons
+echo "Enable check for updates every day in the GUI"
+sudo apt-get install i3 vim 
+sudo apt-get remove gnome-mahjongg gnome-mines gnome-sudoku account-plugin-facebook account-plugin-flickr account-plugin-jabber account-plugin-salut account-plugin-twitter account-plugin-windows-live account-plugin-yahoo
+
+echo " Media removal"
+# Media removal 
+echo "This will print all media to file media.txt"
+echo $(ls -R *.mp3 *.mp4 *.png *.jpeg *.jpg *.wav *.flac *.mov)
+ls -R *.mp3 *.mp4 *.png *.jpeg *.jpg *.wav *.flac *.mov > /home/`whoami`/media.txt
+# Packge listing 
+sudo dpkg -l > /home/`whoami`/packages
+
+sudo apt-get install htop -y
+echo "you can run htop"
+
 echo "MySQL"
 # MySQL
 echo -n "MySQL [Y/n] "
@@ -86,42 +138,6 @@ else
   sudo apt-get -y purge vsftpd*
 fi
 
-echo "Malware removal"
-# Malware
-sudo apt-get -y purge hydra*
-sudo apt-get -y purge john*
-sudo apt-get -y purge nikto*
-sudo apt-get -y purge netcat*
-sudo apt-get -y purge transmisson*
-sudo apt-get -y purge wireshark*
-
-echo "Defult Browser & Update"
-#Defult Browser & Update
-sudo update-alternatives --config x-www-browser
-sudo apt-get update && sudo apt-get install firefox
-
-echo "RootKit Scan & Removal"
-#RootKit Scan & Removal
-sudo apt-get install chkrootkit
-sudo chkroot
-sudo apt-get purge chkrootkit -y 
-
-echo "Fork addons"
-# Fork addons
-echo "Enable check for updates every day in the GUI"
-sudo apt-get install i3 vim 
-sudo apt-get remove gnome-mahjongg gnome-mines gnome-sudoku account-plugin-facebook account-plugin-flickr account-plugin-jabber account-plugin-salut account-plugin-twitter account-plugin-windows-live account-plugin-yahoo
-
-echo " Media removal"
-# Media removal 
-echo "This will print all media to file media.txt"
-echo $(ls -R *.mp3 *.mp4 *.png *.jpeg *.jpg *.wav *.flac *.mov)
-ls -R *.mp3 *.mp4 *.png *.jpeg *.jpg *.wav *.flac *.mov > /home/`whoami`/media.txt
-# Packge listing 
-sudo dpkg -l > /home/`whoami`/packages
-
-sudo apt-get install htop -y
-echo "you can run htop"
 
 #!/bin/bash
 done
